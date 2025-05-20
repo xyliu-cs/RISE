@@ -1,0 +1,3 @@
+[submodule "verl"]
+	path = verl
+	url = https://github.com/xyliu-cs/verl.git
