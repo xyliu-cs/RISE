@@ -32,15 +32,17 @@ pip3 install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url http
 pip3 install flash-attn==2.7.4.post1 --no-build-isolation
 pip3 install omegaconf==2.4.0.dev3 hydra-core==1.4.0.dev1 antlr4-python3-runtime==4.11.0 vllm==0.7.3
 pip3 install math-verify[antlr4_11_0]==0.7.0 fire deepspeed tensorboardX prettytable datasets
-pip3 install -e verl
+cd verl
+pip3 install -e .
 ```
 #### Training
 
 * Data Preparation
 
   ```shell
-  DATA_DIR=/path/to/your/data/output
-  python3 verl_utils/data/generate_train.py --local_dir $DATA_DIR
+  OUTPUT_DATA_DIR=/path/to/your/data/output
+  # Input data path is coded in generate_splits.py
+  python3 verl_utils/data/generate_splits.py --local_dir $OUTPUT_DATA_DIR
   ```
 
 * Start Ray
@@ -59,6 +61,13 @@ pip3 install -e verl
   # Example
   sh scripts/train/start_qwen3b_rise_example.sh
   ```
+  ‼️ **Key Parameters in the Training Script**
+
+  - `+trainer.online_critique`: Enables (True) or disables (False) online verification during the RL training.
+  - `+data.critique_batch_size`: Controls the number of verification samples included in each training batch.
+  - `reward_model.reward_func_path`: Relative path (from `working_dir`) to the Python file defining the **generation reward** function. The file should contain a function named `reward_func`.
+  - `reward_model.ver_reward_func_path`: Path to the **verification** reward function file. This file should contain a function named `ver_reward_func`. Default set to `null`, then the generation reward function is used instead.
+
 
 ## 🙏 Acknowledgements
 
