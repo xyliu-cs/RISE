@@ -56,17 +56,17 @@ pip3 install -e .
   ray start  --address=$HEAD_ADDR:6379 --node-ip-address=$WORKER_ADDR --num-gpus=8
   ```
 
-* Launch training at head node. See `scripts/train` for training scripts.
+* Launch training at head node. See `scripts/train` for the complete training scripts.
   ```shell
   # Example
   sh scripts/train/start_qwen3b_rise_example.sh
   ```
-  ‼️ **Key Parameters in the Training Script**
+  ‼️ **Key Parameters for RISE in the Training Script**
 
-  - `+trainer.online_critique`: Enables (True) or disables (False) online verification during the RL training.
+  - `+trainer.online_critique`: Enables (`True`) or disables (`False`) online verification during the RL training.
   - `+data.critique_batch_size`: Controls the number of verification samples included in each training batch.
-  - `reward_model.reward_func_path`: Relative path (from `working_dir`) to the Python file defining the **generation reward** function. The file should contain a function named `reward_func`.
-  - `reward_model.ver_reward_func_path`: Path to the **verification** reward function file. This file should contain a function named `ver_reward_func`. Default set to `null`, then the generation reward function is used instead.
+  - `reward_model.reward_func_path`: Relative path (from `working_dir`) to the Python file defining the **generation reward** function. The file should contain a function named "reward_func".
+  - `reward_model.ver_reward_func_path`: Path to the **verification reward** function file. This file should contain a function named "ver_reward_func". Default is `null`, and the generation reward function is used instead.
 
 
 ## 🙏 Acknowledgements
