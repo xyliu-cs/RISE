@@ -16,6 +16,7 @@
 
 
 ## 🗒️ News
+- **June 12, 2025**: We update the RISE source code to support the latest verl release [**v0.4.0**](https://github.com/volcengine/verl/releases/tag/v0.4.0).
 - **May 20, 2025**: We release our technical report on [**arXiv**](https://arxiv.org/abs/2505.13445) and the initial version of training code based on [**verl**](https://github.com/volcengine/verl).
 
 
