@@ -1,23 +1,25 @@
 """
-Preprocess the simplerl dataset to parquet format
+Preprocess the MATH-Hard dataset to parquet format
 """
 
 import os
-import datasets
+from datasets import load_dataset
 import argparse
 
-data_source = 'xiaoyuanliu/math-gen-critique'
+train_data_path = 'data/train/MATH_Hard.jsonl'
+val_data_path = 'data/train/MATH_val.jsonl'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--local_dir', default='~/data/simplerl')
+    parser.add_argument('--local_dir', default='data/train')
     args = parser.parse_args()
 
-    train_dataset = datasets.load_dataset(data_source, split='simplerl')
+    train_dataset = load_dataset("json", data_files={"train": train_data_path}, split="train")
+    val_dataset = load_dataset("json", data_files={"val": val_data_path}, split="val")
 
     def process_fn_train(example, idx):
         data = {
-            "data_source": data_source,
+            "data_source": train_data_path,
             "prompt": example['messages'],
             "ability": "math",
             "reward_model": {
@@ -35,7 +37,7 @@ if __name__ == '__main__':
 
     def process_fn_test(example, idx):
         data = {
-            "data_source": data_source,
+            "data_source": val_data_path,
             "prompt": example['messages'],
             "ability": "math",
             "reward_model": {
@@ -52,6 +54,6 @@ if __name__ == '__main__':
         return data
 
     train_dataset = train_dataset.map(function=process_fn_train, with_indices=True)
-    test_dataset = train_dataset.map(function=process_fn_test, with_indices=True)
+    test_dataset = val_dataset.map(function=process_fn_test, with_indices=True)
     train_dataset.to_parquet(os.path.join(args.local_dir, 'train.parquet'))
     test_dataset.to_parquet(os.path.join(args.local_dir, 'test.parquet'))
