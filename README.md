@@ -16,7 +16,7 @@
 
 
 ## 🗒️ News
-- **July 5, 2025**: We release the training script of `Qwen3-Base` on RISE based on verl 0.4, which achieves promising results.
+- **July 5, 2025**: We release the training script of `Qwen3` series on RISE based on verl 0.4.0, which achieves strong results.
 - **June 12, 2025**: We update the [**RISE source code**](https://github.com/xyliu-cs/verl/tree/verl-v4) to support the latest verl release **v0.4.0**.
 - **May 20, 2025**: We release our technical report on [**arXiv**](https://arxiv.org/abs/2505.13445) and the initial version of training code based on [**verl**](https://github.com/volcengine/verl).
 
